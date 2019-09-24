@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": false,
+    "allowUnreachableCode": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noEmitHelpers": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "preserveConstEnums": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "pretty": true,
+    "moduleResolution": "node",
+    "removeComments": false,
+    "noEmitOnError": true
+  },
+  "exclude": ["node_modules"],
+  "typeroots": ["node_modules/@types"]
+}
