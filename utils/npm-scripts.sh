@@ -5,6 +5,10 @@ cleanJS() {
   find ./utils \( -name '.DS_Store' -or -name '._*' -or -name '*.js' -or -name '*.js.map' \) -delete
 }
 
+mocha() {
+  /bin/sh -c "rm -f edugoai-sqlite-test.db; source config-sqlite-test.sh; npx mocha --bail --exit --timeout 8000 test/unit/**/*.js test/unit/*.js"
+}
+
 # Check if the function exists (bash-specific)
 if declare -f "$1" > /dev/null
 then
