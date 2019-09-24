@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Edugo Notification
+  version: 1.0.0
+servers:
+  - url: http://api.edugo.local/notification-center/v1
+tags:
+  - name: Notification
+paths:
+  /notify/admins:
+    post:
+      tags:
+        - Notification
+      description: Send a notification to all admins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminNotificationRequest'
+            examples:
+              example:
+                $ref: '#/components/examples/AdminNotificationRequestExample'
+      responses:
+        200:
+          description: Notification sent successfully
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/SuccessfulResponse'
+        400:
+          description: Invalid Parameters
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/InvalidParametersResponse'
+
+  /notify/users:
+    post:
+      tags:
+        - Notification
+      description: Send a notification to a specific user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersNotificationRequest'
+            examples:
+              example:
+                $ref: '#/components/examples/UserNotificationRequestExample'
+      responses:
+        200:
+          description: Notification sent successfully
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/SuccessfulResponse'
+        400:
+          description: Invalid Parameters
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/InvalidParametersResponse'
+
+components:
+  schemas:
+    AdminNotificationRequest:
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+
+    UsersNotificationRequest:
+      required:
+        - message
+        - user
+      type: object
+      properties:
+        message:
+          type: string
+        user:
+          required:
+            - id
+          type: object
+          properties:
+            id:
+              type: string
+
+  
+  examples:
+    AdminNotificationRequestExample:
+      value:  {
+        "message": "You just got a notification!"
+      }
+  
+    UserNotificationRequestExample:
+      value:  {
+        "message": "You just got a notification!",
+        "user": {
+          "id": "1"
+        }
+      }    
+  
+    SuccessfulResponse:
+      value:
+        {
+          "success": True,
+          "message": "Notification sent sucessfully"
+        }
+  
+    InvalidParametersResponse:
+      value:
+        {
+          "success": False,
+          "message": "Missing parameter 'message'"
+        }
+  
+
+ 
