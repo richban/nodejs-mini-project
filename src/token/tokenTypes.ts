@@ -1,8 +1,6 @@
 import { UserRole } from '../entity/User'
-// import { signJwt } from '../security'
-// import { Config } from '../config'
 
-interface IBaseToken {
+export interface IBaseToken {
   iat: number
   exp: number
 }
