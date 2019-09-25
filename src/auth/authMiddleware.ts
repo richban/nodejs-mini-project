@@ -24,7 +24,7 @@ export async function verifyLogin(
         const role = user.getRole()
         res.locals.data.user = user
         res.locals.data.role = role
-        res.locals.data.token = formatLoginToken(user.id, role)
+        res.locals.data.token = formatLoginToken(user.user_id, role)
       }
     }
   } catch (error) {

@@ -23,7 +23,7 @@ export enum Permission {
 export class User {
   // tslint:disable-next-line:variable-name
   @PrimaryGeneratedColumn()
-  public id: number
+  public user_id: number
 
   @Column({ type: 'varchar', unique: true })
   public email: string

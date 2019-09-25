@@ -6,7 +6,10 @@ import { Booking } from './Booking'
 export class Room extends BaseEntity {
   // tslint:disable-next-line:variable-name
   @PrimaryGeneratedColumn()
-  public id: number
+  public room_id: number
+
+  @Column({ type: 'varchar', unique: true })
+  public code: string
 
   @Column({ type: 'varchar', nullable: false, length: 17 })
   public name: string

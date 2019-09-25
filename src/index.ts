@@ -1,7 +1,7 @@
 import * as express from 'express'
 import { Application } from 'express'
 import { initLocals, ensureDbConnection } from './expressApp'
-import { authRoutes } from './auth/authRoutes'
+import { routes } from './routes'
 import * as bodyParser from 'body-parser'
 
 // Get a stack trace when warnings are emitted.
@@ -18,7 +18,7 @@ server.use(initLocals)
 server.use(ensureDbConnection)
 
 // Routes
-server.use('/', authRoutes)
+server.use('/', routes)
 
 server.listen(port, () => {
   // tslint:disable-next-line:no-console

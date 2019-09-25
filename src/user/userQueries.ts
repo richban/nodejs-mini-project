@@ -28,7 +28,6 @@ export function getUserById(userId: string | number): Promise<User | undefined> 
 /**
  * Fetches a  User by email address
  * @param userEmail
- * @param conn
  * @returns {Promise<undefined|User>}
  */
 export function fetchUserByEmail(userEmail: string): Promise<User | undefined> {

@@ -4,6 +4,7 @@
 @port = 8080
 @host = {{hostname}}:{{port}}
 
+### Logins as Admin User
 # @name login
 POST {{host}}/login
 Content-Type: application/json
@@ -11,4 +12,40 @@ Content-Type: application/json
 {
   "username": "admin_1569417064968@edugoai.com",
   "password": "admin"
+}
+
+### Logins as standard User
+# @name login
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "standard_1569417064991@edugoai.com",
+  "password": "standard"
+}
+
+### Create a new meeting room only available for admins
+# @name createNewMeetingRoom
+POST {{host}}/room
+Content-Type: application/json
+access-token: {{login.response.body.token}}
+
+{
+  "name": "Shanghai",
+  "code": "C002SHANGHAI",
+  "description": "Meeting room for the board memebers",
+  "capacity": 20
+}
+
+### Update a meeting room only available for admins
+# @name updateMeetingRoom
+PATCH {{host}}/room
+Content-Type: application/json
+access-token: {{login.response.body.token}}
+
+{
+  "name": "New York",
+  "code": "C001NEWYORK",
+  "description": "Meeting room with only projector",
+  "capacity": 5
 }
