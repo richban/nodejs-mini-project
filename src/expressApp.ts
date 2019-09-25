@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express'
 import { User } from './entity'
 import { verifyTokenOfType } from './security'
 import { getUserById } from './user/userQueries'
+import { dbo } from './orm'
 
 export const ACCESS_TOKEN_FIELD = 'access-token'
 export type GenericResponseErrors = 'GENERIC_ERROR' | 'GENERIC_INVALID_TOKEN'
@@ -81,4 +82,17 @@ async function verifyTokenRole(token: IEDUGOToken, allowedRoles: UserRole[]): Pr
     return allowedRoles.find((aRole: UserRole) => aRole === role) !== undefined
   }
   return true
+}
+
+/**
+ * Hack-ish middleware to initialise res.locals.data which is used in other middleware to pass on data
+ */
+export function initLocals(req: Request, res: Response, next: NextFunction) {
+  res.locals.data = {}
+  return next()
+}
+
+export async function ensureDbConnection(req: Request, res: Response, next: NextFunction) {
+  await dbo()
+  return next()
 }

@@ -1,20 +1,40 @@
-import { Connection, getManager } from 'typeorm'
+import { getManager } from 'typeorm'
 import { User } from '../entity'
-import { dbo } from '../orm'
 
+/**
+ * Fetches all the Users
+ * @returns {Promise<User[]|Undefined>}
+ */
 export async function fetchUsers(): Promise<User[] | undefined> {
-  const conn: Connection = await dbo()
-  return conn
+  return getManager()
     .getRepository(User)
     .createQueryBuilder('user')
     .getMany()
 }
 
-// Returns the user with the given id
+/**
+ * Fetches a User by user_id
+ * @param userId
+ * @returns {Promise<User|Undefined>}
+ */
 export function getUserById(userId: string | number): Promise<User | undefined> {
   return getManager()
     .getRepository(User)
     .createQueryBuilder('usr')
     .where('usr.user_id = :userId', { userId })
+    .getOne()
+}
+
+/**
+ * Fetches a  User by email address
+ * @param userEmail
+ * @param conn
+ * @returns {Promise<undefined|User>}
+ */
+export function fetchUserByEmail(userEmail: string): Promise<User | undefined> {
+  return getManager()
+    .getRepository(User)
+    .createQueryBuilder('user')
+    .where('user.email = :email', { email: userEmail })
     .getOne()
 }
