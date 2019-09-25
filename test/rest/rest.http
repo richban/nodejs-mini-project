@@ -1,0 +1,14 @@
+# Please see https://marketplace.visualstudio.com/items?itemName=humao.rest-client for documentation
+
+@hostname = http://localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+
+# @name login
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "admin_1569417064968@edugoai.com",
+  "password": "admin"
+}
