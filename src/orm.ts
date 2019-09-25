@@ -7,7 +7,7 @@ export interface IDboSettings {
   debug?: boolean
 }
 
-export async function dbo(settings: IDboSettings = { forceDropSchema: false, debug: false }): Promise<Connection> {
+export async function dbo(settings: IDboSettings = { forceDropSchema: false, debug: true }): Promise<Connection> {
   const { forceDropSchema, debug } = settings
   const useInMemoryDb = String(Config.db.database).startsWith(':') // might add because of unit tests
   let conn: Connection
@@ -20,7 +20,7 @@ export async function dbo(settings: IDboSettings = { forceDropSchema: false, deb
     migrationsRun: false,
     // Only allow dropping the schema for in-memory and when forceDropSchema is true
     dropSchema: useInMemoryDb && forceDropSchema,
-    logging: debug ? ['query'] : [],
+    logging: debug,
   }
 
   // Checks if a connection is registered in the given connection manager.
