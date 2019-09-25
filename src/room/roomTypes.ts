@@ -10,3 +10,10 @@ export interface IRoomResponse {
   description?: string
   capacity: number
 }
+
+export interface IRoomBookRequest {
+  bookingStart: Date
+  bookingEnd: Date
+  title: string
+  purpose: string
+}

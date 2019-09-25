@@ -1,8 +1,8 @@
 import { IBaseRequest, IBaseResponse, errorResponse } from '../expressApp'
-import { IRoomRequest, IRoomResponse } from './roomTypes'
-import { createNewRoom } from './roomFunctions'
+import { IRoomRequest, IRoomResponse, IRoomBookRequest } from './roomTypes'
+import { createNewRoom, createNewBooking } from './roomFunctions'
 import { mapORMRoomToApi } from './roomMappers'
-import { fetchRoomByCode, fetchAllRooms } from './roomQueries'
+import { fetchRoomByCode, fetchAllRooms, fetchRoomById } from './roomQueries'
 import * as Creators from '../factories/creators'
 
 export async function createRoom(req: IBaseRequest<IRoomRequest>, res: IBaseResponse<never, IRoomResponse>) {
@@ -48,5 +48,26 @@ export async function getRooms(req: IBaseRequest, res: IBaseResponse<never, IRoo
     return res.status(200).json(mappedRooms)
   } catch (error) {
     return errorResponse(res, 'GENERIC_ERROR', 500)
+  }
+}
+
+export async function bookRoom(req: IBaseRequest<IRoomBookRequest>, res: IBaseResponse<never, any>) {
+  try {
+    const user = res.locals.user!
+    const room = await fetchRoomById(req.params.id)
+    const bookingPros = {
+      bookingStart: new Date(req.body.bookingStart),
+      bookingEnd: new Date(req.body.bookingEnd),
+      title: req.body.title,
+      purpose: req.body.purpose,
+    }
+    if (!room) {
+      return errorResponse(res, 'GENERIC_ROOM_NOT_FOUND', 404)
+    }
+    const newBooking = await createNewBooking(room, user, bookingPros)
+
+    return res.status(200).json(newBooking)
+  } catch (error) {
+    return errorResponse(res, 'GENERIC_ERROR', 500, error)
   }
 }

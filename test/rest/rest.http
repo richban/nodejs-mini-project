@@ -31,10 +31,10 @@ Content-Type: application/json
 access-token: {{login.response.body.token}}
 
 {
-  "name": "Shanghai",
-  "code": "C002SHANGHAI",
-  "description": "Meeting room for the board memebers",
-  "capacity": 20
+  "name": "Beijing",
+  "code": "C003BEIJING",
+  "description": "Meeting room for the board members",
+  "capacity": 10
 }
 
 ### Update a meeting room only available for admins
@@ -44,8 +44,21 @@ Content-Type: application/json
 access-token: {{login.response.body.token}}
 
 {
-  "name": "New York",
-  "code": "C001NEWYORK",
-  "description": "Meeting room with only projector",
-  "capacity": 5
+  "name": "Beijing",
+  "code": "C003BEIJING",
+  "description": "Meeting room for the board members",
+  "capacity": 10
+}
+
+### Book a meeting Room
+# @name bookRoom
+POST {{host}}/room/1/book
+Content-Type: application/json
+access-token: {{login.response.body.token}}
+
+{
+  "bookingStart": "Wed Sep 25 2019 23:00:00 GMT+0200 (CEST)",
+  "bookingEnd": "Wed Sep 25 2019 23:30:00 GMT+0200 (CEST)",
+  "title": "Board Meeting",
+  "purpose": "Q3 and Q3 follow up"
 }

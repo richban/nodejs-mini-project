@@ -7,7 +7,11 @@ import { getUserById } from './user/userQueries'
 import { dbo } from './orm'
 
 export const ACCESS_TOKEN_FIELD = 'access-token'
-export type GenericResponseErrors = 'GENERIC_ERROR' | 'GENERIC_INVALID_TOKEN'
+export type GenericResponseErrors =
+  | 'GENERIC_ERROR'
+  | 'GENERIC_INVALID_TOKEN'
+  | 'GENERIC_USER_NOT_FOUND'
+  | 'GENERIC_ROOM_NOT_FOUND'
 export type ResponseErrors = GenericResponseErrors
 
 export interface IBaseRequest<T = any> extends Request {
@@ -28,10 +32,10 @@ export interface IBaseResponse<LocalsData = any, Res = any> extends Response {
   status(code: number): IBaseResponse<LocalsData, Res>
 }
 
-export function errorResponse(response: Response, message: ResponseErrors | null, statusCode: number) {
+export function errorResponse(response: Response, message: ResponseErrors | null, statusCode: number, error?: any) {
   return response
     .status(statusCode)
-    .json({ message })
+    .json({ message, error })
     .end()
 }
 
@@ -94,5 +98,15 @@ export function initLocals(req: Request, res: Response, next: NextFunction) {
 
 export async function ensureDbConnection(req: Request, res: Response, next: NextFunction) {
   await dbo()
+  return next()
+}
+
+export async function attachUserFromToken(req: Request, res: IBaseResponse, next: NextFunction) {
+  const token = res.locals.jwt as ILoginToken
+  const user = await getUserById(token.userId)
+  if (!user) {
+    return errorResponse(res, 'GENERIC_USER_NOT_FOUND', 404)
+  }
+  res.locals.user = user
   return next()
 }

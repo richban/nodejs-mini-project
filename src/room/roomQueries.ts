@@ -15,6 +15,19 @@ export function fetchRoomByCode(code: string): Promise<Room | undefined> {
 }
 
 /**
+ *  Fetches a Room by it's id
+ * @param id
+ * @returns {Promise<Room|undefined>}
+ */
+export function fetchRoomById(id: string): Promise<Room | undefined> {
+  return getManager()
+    .getRepository(Room)
+    .createQueryBuilder('room')
+    .where('room.room_id = :id', { id })
+    .getOne()
+}
+
+/**
  * Fetches all Rooms
  * @param code
  * @returns {Promise<undefined|Room[]>}

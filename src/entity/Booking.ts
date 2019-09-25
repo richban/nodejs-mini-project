@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BeforeInsert, getManager } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BeforeInsert, getManager, JoinColumn } from 'typeorm'
 import { User } from './User'
 import { Room } from './Room'
 import { BaseEntity } from './BaseEntity'
@@ -15,17 +15,25 @@ export class Booking extends BaseEntity {
   @Column({ name: 'booking_end', type: 'datetime', nullable: false })
   public bookingEnd: Date
 
+  @Column({ name: 'start_hour' })
+  public startHour: number
+
+  @Column({ name: 'duration' })
+  public duration: number
+
   @Column({ name: 'title', type: 'varchar' })
   public title: string
 
   @Column({ name: 'purpose', type: 'varchar' })
   public purpose: string
 
+  @JoinColumn({ name: 'user_id' })
   @ManyToOne(type => User, user => user.bookings)
-  user: User
+  public user: User
 
+  @JoinColumn({ name: 'room_id' })
   @ManyToOne(type => Room, room => room.bookings)
-  room: Room
+  public room: Room
 
   public clashesWithExisting(
     existingBookingStart: number,
@@ -55,15 +63,15 @@ export class Booking extends BaseEntity {
     const newBookingStart = this.bookingStart.getTime()
     const newBookingEnd = this.bookingEnd.getTime()
 
-    const existingBookings = await getManager()
+    const room = await getManager()
       .getRepository(Room)
       .findOne({
-        relations: ['room'],
+        relations: ['bookings'],
         where: { room: { room_id: roomId } },
       })
 
-    if (existingBookings && existingBookings.bookings) {
-      const bookingClash = existingBookings.bookings
+    if (room && room.bookings && room.bookings.length > 0) {
+      const bookingClash = room.bookings
         .map(booking => {
           // Convert existing booking Date objects into number values
           const existingBookingStart = new Date(booking.bookingStart).getTime()

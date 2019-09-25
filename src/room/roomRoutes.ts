@@ -1,12 +1,12 @@
 import { JWTType } from './../token/tokenTypes'
 import { Router } from 'express'
-import { verifyToken } from '../expressApp'
-import { createRoom, updateRoom } from './roomMiddleware'
+import { verifyToken, attachUserFromToken } from '../expressApp'
+import { createRoom, updateRoom, bookRoom } from './roomMiddleware'
 
 export const roomRoutes = Router()
 
 /**
- * Creates new meeting Room
+ * Creates a new meeting Room
  * @todo: add validation of the body request
  */
 roomRoutes.post('/room', verifyToken([JWTType.LoginToken], ['Authentication'], ['admin']), createRoom)
@@ -15,3 +15,13 @@ roomRoutes.post('/room', verifyToken([JWTType.LoginToken], ['Authentication'], [
  * Allow Admins to update meeting Room information
  */
 roomRoutes.patch('/room', verifyToken([JWTType.LoginToken], ['Authentication'], ['admin']), updateRoom)
+
+/**
+ * Book a meeting Room
+ */
+roomRoutes.post(
+  '/room/:id/book',
+  verifyToken([JWTType.LoginToken], ['Authentication'], ['admin', 'standard']),
+  attachUserFromToken,
+  bookRoom,
+)
