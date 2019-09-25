@@ -10,4 +10,5 @@ export const Config: EDUGOConfig = {
   env: process.env.NODE_ENV || 'local',
   appName: 'Edugo AI Mini-project API',
   db: dbDriver,
+  jwtSecret: process.env.JWT_SECRET || '',
 }

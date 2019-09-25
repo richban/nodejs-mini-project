@@ -11,3 +11,7 @@ export DB_USER="root"
 export DB_PASS="Develop123"
 export DB_NAME="edugoai-dev"
 export DB_SOCKET_PATH="/tmp/edugoai-db.sock"
+
+# Application-specific
+export JWT_SECRET="n9w7otblnJ9JHQfX1mUpWc3mHA71gVhm"
+export API_URL="http://localhost:8080"
