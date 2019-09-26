@@ -29,7 +29,6 @@ export function fetchRoomById(id: string): Promise<Room | undefined> {
 
 /**
  * Fetches all Rooms
- * @param code
  * @returns {Promise<undefined|Room[]>}
  */
 export function fetchAllRooms(): Promise<Room[] | undefined> {
@@ -37,4 +36,17 @@ export function fetchAllRooms(): Promise<Room[] | undefined> {
     .getRepository(Room)
     .createQueryBuilder('room')
     .getMany()
+}
+
+/**
+ * Fetches all Rooms with Relations
+ * @param code
+ * @returns {Promise<Room[]|>}
+ */
+export function fetchAllBookedRooms(): Promise<Room[]> {
+  return getManager()
+    .getRepository(Room)
+    .find({
+      relations: ['bookings'],
+    })
 }

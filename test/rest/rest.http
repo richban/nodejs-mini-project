@@ -57,8 +57,14 @@ Content-Type: application/json
 access-token: {{login.response.body.token}}
 
 {
-  "bookingStart": [2019, 8, 26, 13, 30],
-  "bookingEnd": [2019, 8, 26, 17, 0],
+  "bookingStart": [2019, 8, 26, 19, 30],
+  "bookingEnd": [2019, 8, 26, 20, 0],
   "title": "Board Meeting",
   "purpose": "Q3 and Q3 follow up"
 }
+
+### Get Room Bookings
+# @name getRoomsBookings
+GET {{host}}/room/bookings
+Content-Type: application/json
+access-token: {{login.response.body.token}}

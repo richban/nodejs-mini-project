@@ -1,8 +1,8 @@
 import { IBaseRequest, IBaseResponse, errorResponse } from '../expressApp'
 import { IRoomRequest, IRoomResponse, IRoomBookRequest } from './roomTypes'
-import { createNewRoom, createNewBooking } from './roomFunctions'
+import { createNewRoom, createNewBooking, dailyBookings, bookingSlots } from './roomFunctions'
 import { mapORMRoomToApi } from './roomMappers'
-import { fetchRoomByCode, fetchAllRooms, fetchRoomById } from './roomQueries'
+import { fetchRoomByCode, fetchAllRooms, fetchRoomById, fetchAllBookedRooms } from './roomQueries'
 import * as Creators from '../factories/creators'
 import moment = require('moment')
 
@@ -68,6 +68,32 @@ export async function bookRoom(req: IBaseRequest<IRoomBookRequest>, res: IBaseRe
     const newBooking = await createNewBooking(room, user, bookingPros)
 
     return res.status(200).json(newBooking)
+  } catch (error) {
+    return errorResponse(res, 'GENERIC_ERROR', 500, error)
+  }
+}
+
+export async function getRoomsBookings(req: IBaseRequest, res: IBaseResponse<never, any>) {
+  try {
+    const rooms = await fetchAllBookedRooms()
+
+    const dailyRoomBookings = rooms.map(room => {
+      if (room.bookings) {
+        const bookings = dailyBookings(room.bookings)
+        return { ...room, bookings }
+      }
+      return room
+    })
+
+    const appointment = dailyRoomBookings.map(room => {
+      if (room.bookings && room.bookings.length > 0) {
+        const appointments = bookingSlots(room.bookings)
+        return { ...room, appointments }
+      }
+      return room
+    })
+
+    return res.status(200).json(appointment)
   } catch (error) {
     return errorResponse(res, 'GENERIC_ERROR', 500, error)
   }

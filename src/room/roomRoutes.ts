@@ -1,7 +1,7 @@
 import { JWTType } from './../token/tokenTypes'
 import { Router } from 'express'
 import { verifyToken, attachUserFromToken } from '../expressApp'
-import { createRoom, updateRoom, bookRoom } from './roomMiddleware'
+import { createRoom, updateRoom, bookRoom, getRoomsBookings } from './roomMiddleware'
 
 export const roomRoutes = Router()
 
@@ -24,4 +24,10 @@ roomRoutes.post(
   verifyToken([JWTType.LoginToken], ['Authentication'], ['admin', 'standard']),
   attachUserFromToken,
   bookRoom,
+)
+
+roomRoutes.get(
+  '/room/bookings',
+  verifyToken([JWTType.LoginToken], ['Authentication'], ['admin', 'standard']),
+  getRoomsBookings,
 )
