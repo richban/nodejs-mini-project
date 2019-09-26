@@ -52,13 +52,13 @@ access-token: {{login.response.body.token}}
 
 ### Book a meeting Room
 # @name bookRoom
-POST {{host}}/room/1/book
+POST {{host}}/room/2/book
 Content-Type: application/json
 access-token: {{login.response.body.token}}
 
 {
-  "bookingStart": "Wed Sep 25 2019 23:00:00 GMT+0200 (CEST)",
-  "bookingEnd": "Wed Sep 25 2019 23:30:00 GMT+0200 (CEST)",
+  "bookingStart": [2019, 9, 30, 8, 30],
+  "bookingEnd": [2019, 9, 30, 9, 0],
   "title": "Board Meeting",
   "purpose": "Q3 and Q3 follow up"
 }

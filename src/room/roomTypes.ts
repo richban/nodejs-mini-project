@@ -12,8 +12,8 @@ export interface IRoomResponse {
 }
 
 export interface IRoomBookRequest {
-  bookingStart: Date
-  bookingEnd: Date
+  bookingStart: number[]
+  bookingEnd: number[]
   title: string
   purpose: string
 }

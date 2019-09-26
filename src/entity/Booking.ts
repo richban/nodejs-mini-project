@@ -15,10 +15,10 @@ export class Booking extends BaseEntity {
   @Column({ name: 'booking_end', type: 'datetime', nullable: false })
   public bookingEnd: Date
 
-  @Column({ name: 'start_hour' })
+  @Column({ name: 'start_hour', nullable: true })
   public startHour: number
 
-  @Column({ name: 'duration' })
+  @Column({ name: 'duration', nullable: true })
   public duration: number
 
   @Column({ name: 'title', type: 'varchar' })
@@ -88,5 +88,20 @@ export class Booking extends BaseEntity {
     }
 
     return true
+  }
+
+  public durationHours(): number {
+    const startDate = moment(this.bookingStart)
+    const endDate = moment(this.bookingEnd)
+    // calculate the duration of the difference between the two times
+    let difference = moment.duration(endDate.diff(startDate))
+    // return the difference in decimal format
+    return difference.hours() + difference.minutes() / 60
+  }
+
+  @BeforeInsert()
+  public setDurationAndStartHour() {
+    this.duration = this.durationHours()
+    this.startHour = parseInt(moment(this.bookingStart).format('H'), 10)
   }
 }

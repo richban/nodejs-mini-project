@@ -4,6 +4,7 @@ import { createNewRoom, createNewBooking } from './roomFunctions'
 import { mapORMRoomToApi } from './roomMappers'
 import { fetchRoomByCode, fetchAllRooms, fetchRoomById } from './roomQueries'
 import * as Creators from '../factories/creators'
+import moment = require('moment')
 
 export async function createRoom(req: IBaseRequest<IRoomRequest>, res: IBaseResponse<never, IRoomResponse>) {
   try {
@@ -56,8 +57,8 @@ export async function bookRoom(req: IBaseRequest<IRoomBookRequest>, res: IBaseRe
     const user = res.locals.user!
     const room = await fetchRoomById(req.params.id)
     const bookingPros = {
-      bookingStart: new Date(req.body.bookingStart),
-      bookingEnd: new Date(req.body.bookingEnd),
+      bookingStart: moment(req.body.bookingStart).toDate(),
+      bookingEnd: moment(req.body.bookingEnd).toDate(),
       title: req.body.title,
       purpose: req.body.purpose,
     }
