@@ -67,7 +67,7 @@ export class Booking extends BaseEntity {
       .getRepository(Room)
       .findOne({
         relations: ['bookings'],
-        where: { room: { room_id: roomId } },
+        where: { room_id: roomId },
       })
 
     if (room && room.bookings && room.bookings.length > 0) {

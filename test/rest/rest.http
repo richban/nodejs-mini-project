@@ -57,8 +57,8 @@ Content-Type: application/json
 access-token: {{login.response.body.token}}
 
 {
-  "bookingStart": [2019, 9, 30, 8, 30],
-  "bookingEnd": [2019, 9, 30, 9, 0],
+  "bookingStart": [2019, 8, 26, 13, 30],
+  "bookingEnd": [2019, 8, 26, 17, 0],
   "title": "Board Meeting",
   "purpose": "Q3 and Q3 follow up"
 }
