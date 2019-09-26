@@ -75,7 +75,7 @@ For the [Nice-to-have] requirements, you will required to call another API. Refe
 Clone the repo
 
 ```
-git clone https://github.com/richban/
+git clone https://github.com/richban/edugo-ai-mini-project
 ```
 
 Change to the project folder and install development and producation dependencies.
