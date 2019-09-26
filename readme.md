@@ -1,40 +1,10 @@
 
 # Edugo backend mini-project
 
-Thank you for your interest in applying for *Backend Developer* position at Edugo.
-As part of the screening proccess, you will be required to complete this mini-project. The mini-project consists of understanding the *Product Description*, *Technical Requirements*, designing and implementing a backend service for a meeting room booking system.
-This exercise is expected to take around one day. If it takes too long to complete, please submit what you already have, you will have opportunity to address incomplete issues during a follow-up interview. We value your time and do not wish you to spend more than a whole day on this exercise.
+## Objective
 
-## Everything is APIs
+### Meeting room booking system
 
-Jeff Bezos issued an email to the whole Amazon company sometime back in the 2000s.
-It went somewhat along those lines:
-
-* All teams will henceforth expose their data and functionality
-through service interfaces.
-* Teams must communicate with each other through these
-interfaces.
-* There will be no other form of interprocess communication
-allowed: no direct linking, no direct reads of another team's data
-store, no shared-memory model, no back-doors whatsoever. The
-only communication allowed is via service interface calls over the
-network.
-* It doesn't matter what technology they use. HTTP, Corba,
-Pubsub, custom protocols -- doesn't matter. Bezos doesn't care.
-* Anyone who doesn't do this will be fired.
-* Thank you; have a nice day!
-
-Amazon understood the importance of APIs more than a decade ago. And we would like you to take this spirit as you proceed with this exercise. As a *Backend Developer* at Edugo, it will be your responsibility to design, implement, test and maintain the Edugo APIs. Those APIs will be the engine that makes the Edugo system work.
-
-
-## Meeting room booking system
-
-Your task will to build a project that satisfies the *Product Description* and *Technical Requiremnts*.
-
-
-## Product Description
-
-### Objective
 Build a meeting room booking system backend
 
 ### Feature Specification:
@@ -79,37 +49,6 @@ Build a meeting room booking system backend
     - Whether it is a new booking or a cancellation
 - [Nice-to-have] Users should be reminded of a meeting 30 minutes before the meeting starts
 
-
-## Technical Requirements
-
-### Client-side
-
-All client requests will include a standard JWT token in the header.
-Assume all jwt tokens have already been validated. You do not need to check if the token signature is valid.
-The jwt token payload will look something like this
-
-*Admin user*
-```
-{
-    "user": {
-        "id": 1,
-        "nickname": "John Smith",
-        "roles:" ["admin"]
-    }
-}
-```
-
-*Standard User*
-```
-{
-    "user": {
-        "id": 1,
-        "nickname": "John Smith",
-        "roles:" []
-    }
-}
-```
-
 ### Notification Service
 
 For the [Nice-to-have] requirements, you will required to call another API. Refer to the `notifiation-api.swagger.yaml` its usage.
@@ -128,9 +67,41 @@ For the [Nice-to-have] requirements, you will required to call another API. Refe
 - In the readme include how to start the server, and how to run tests and a link to the swagger documentation
 - Use git for version control, keep commit clean and iterative
 
-#### How to submit
 
-- We recommend you set up a private git repository for this project.
-- Once you are finished you can add @han4wluc to the private repository, or you can zip the project folder and send us the zip file.
-- Please do not post the solution in a public repository as we may wish to reuse this mini-project exercise for other candidates in the future.
-- For any questions, do not hesitate to ask us on the Wechat group.
+# About project
+
+### Instalation
+
+Clone the repo
+
+```
+git clone https://github.com/richban/
+```
+
+Change to the project folder and install development and producation dependencies.
+
+```
+npm install
+```
+
+Start server
+
+```
+npm run local
+```
+
+Run unit tests
+
+```
+npm run test
+```
+
+### TODO
+
+- [Feature] Cancel Meeting
+- [Feature] Notifications
+- Add pics of meeting rooms (local)
+- Deployment Dockerization
+- Validation of the date-time in the request body `/room/:id/book`
+- Unit tests
+- Finalize proper login endpoint
