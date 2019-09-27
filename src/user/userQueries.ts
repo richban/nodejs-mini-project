@@ -20,7 +20,7 @@ export async function fetchUsers(): Promise<User[] | undefined> {
 export function getUserById(userId: string | number): Promise<User | undefined> {
   return getManager()
     .getRepository(User)
-    .createQueryBuilder('usr')
+    .createQueryBuilder('usr') // user
     .where('usr.user_id = :userId', { userId })
     .getOne()
 }

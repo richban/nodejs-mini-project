@@ -10,6 +10,8 @@ export const roomRoutes = Router()
  * @todo: add validation of the body request
  */
 roomRoutes.post('/room', verifyToken([JWTType.LoginToken], ['Authentication'], ['admin']), createRoom)
+// OK. Could also write like:
+// roomRoutes.post('/room', requireLoginToken, requireRole('admin')), createRoom)
 
 /**
  * Allow Admins to update meeting Room information

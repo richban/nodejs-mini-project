@@ -31,6 +31,10 @@ export class User {
   @Column({ type: 'varchar', length: 60, nullable: false, default: '' })
   public password: string
 
+  // Not a good thing to store the permissions. It is better to store user roles.
+  // For example, if we decide that Standard Users can also create rooms.
+  // Then we would need to update this column for all standard users.
+  // With roles, I usually use a middleware or decorator in the route like: requireRole('admin')
   @Column({ type: 'simple-json', nullable: true })
   public permissions: PermissionsScheme[] | null
 

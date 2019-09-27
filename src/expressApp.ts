@@ -6,7 +6,7 @@ import { verifyTokenOfType } from './security'
 import { getUserById } from './user/userQueries'
 import { dbo } from './orm'
 
-export const ACCESS_TOKEN_FIELD = 'access-token'
+export const ACCESS_TOKEN_FIELD = 'access-token' // Usually jwt header is `Authorization: Bearer ${token}`
 export type GenericResponseErrors =
   | 'GENERIC_ERROR'
   | 'GENERIC_INVALID_TOKEN'

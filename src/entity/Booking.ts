@@ -29,6 +29,9 @@ export class Booking extends BaseEntity {
 
   @JoinColumn({ name: 'user_id' })
   @ManyToOne(type => User, user => user.bookings)
+  // This is the user who booked the room.
+  // User is ambigous.
+  // Better would be bookingUser/initiator/creator (user who created the booking). But English is hard...
   public user: User
 
   @JoinColumn({ name: 'room_id' })

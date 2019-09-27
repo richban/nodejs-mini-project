@@ -1,3 +1,4 @@
+// EDUGOConfig can be named EdugoConfig
 import { EDUGOConfig } from './configTypes'
 import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions'
 
