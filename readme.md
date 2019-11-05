@@ -1,5 +1,5 @@
 
-# Edugo backend mini-project
+# Backend mini-project
 
 ## Objective
 
@@ -75,7 +75,7 @@ For the [Nice-to-have] requirements, you will required to call another API. Refe
 Clone the repo
 
 ```
-git clone https://github.com/richban/edugo-ai-mini-project
+git clone https://github.com/richban/nodejs-mini-project
 ```
 
 Change to the project folder and install development and producation dependencies.
